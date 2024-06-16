@@ -1,0 +1,17 @@
+[
+    {
+        "name": "A",
+        "maxCost": 10,
+        "startingCredit": 100
+    },
+    {
+        "name": "B",
+        "maxCost": 5,
+        "startingCredit": 50
+    },
+    {
+        "name": "C",
+        "maxCost": 4,
+        "startingCredit": 60
+    }
+]

@@ -1,0 +1,1 @@
+{"_queue":[],"_actionPool":[{"_name":"A","_maxCost":10,"_cost":10},{"_name":"B","_maxCost":5,"_cost":4},{"_name":"C","_maxCost":4,"_cost":3}],"_creditPool":[{"actionName":"A","credit":31},{"actionName":"B","credit":30},{"actionName":"C","credit":33}]}
