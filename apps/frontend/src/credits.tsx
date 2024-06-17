@@ -17,15 +17,11 @@ export default function Credits () {
     }
 
     useEffect(() => {
-        const intervalCall = setInterval(() => getCredits(), 5000);
+        const intervalCall = setInterval(() => getCredits(), 1000);
         return () => clearInterval(intervalCall);
     }, [])
 
-    const Li = styled.li`
-
-    `;
-
-    const creditsList = credits.map((c, i) => <Li key={i}> {c.actionName}: {c.credit} </Li>)
+    const creditsList = credits.map((c, i) => <li key={i}> {c.actionName}: {c.credit} </li>)
 
     const Div = styled.div`
     display: flex;

@@ -8,6 +8,7 @@ const port = process.env.PORT ? Number(process.env.PORT) : 3000;
 
 
 let fifo: FIFOQueue = new FIFOQueue();
+
 const app = express();
 
 app.use(cors())
@@ -30,7 +31,8 @@ app.get('/queue', (req, res) => {
   res.json(fifo.queue.map(a => a.json()));
 });
 
-
-app.listen(port, host, async () => {
-  console.log(`[ ready ] http://${host}:${port}`);
-});
+fifo.init().then(_ => {
+  app.listen(port, host, async () => {
+    console.log(`[ ready ] http://${host}:${port}`);
+  });
+})

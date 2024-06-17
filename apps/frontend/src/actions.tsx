@@ -31,7 +31,6 @@ export default function Actions () {
 
     useEffect(() => {
         axios.get('http://localhost:3000/action').then(r => {
-            console.log(r);
             setActions(r.data)
         });
     }, [])

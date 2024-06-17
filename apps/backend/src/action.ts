@@ -24,7 +24,7 @@ export default class Action {
     }
 
     private calculateCost() {
-        this.cost = Math.round((MIN_COST + Math.random() * (MAX_COST - MIN_COST)) * this.maxCost);
+        this.cost = Math.floor((MIN_COST + Math.random() * (MAX_COST - MIN_COST)) * this.maxCost);
     }
     
     public get name(): string {

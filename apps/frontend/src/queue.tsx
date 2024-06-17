@@ -16,7 +16,7 @@ export default function Queue () {
     }
 
     useEffect(() => {
-        const intervalCall = setInterval(() => getQueue(), 5000);
+        const intervalCall = setInterval(() => getQueue(), 1000);
         return () => clearInterval(intervalCall);
     }, [])
 

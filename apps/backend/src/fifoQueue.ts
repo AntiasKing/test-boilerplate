@@ -14,8 +14,10 @@ export default class FIFOQueue {
     private _creditPool: Credit[] = [];
 
     constructor(){
+    }
 
-        this.loadConfig().then(async actionConfig => {
+    async init() {
+        await this.loadConfig().then(async actionConfig => {
             const fifo = await this.loadFIFO();
             
             this._actionPool = actionConfig.map(a => new Action(a));
@@ -27,7 +29,7 @@ export default class FIFOQueue {
                 this._creditPool = actionConfig.map(a => {return {actionName: a.name, credit: a.startingCredit }});
             }
 
-            setInterval(_ => this.execute() , REFRESH_TIME);
+            setInterval(async _ => await this.execute() , REFRESH_TIME);
         });
     }
 
@@ -53,15 +55,15 @@ export default class FIFOQueue {
 
     }
 
-    push(actionName: {name: string}) {
+    async push(actionName: {name: string}) {
         const action = this.actionPool.find(a => a.name === actionName.name);
         if (action) {
             this.queue.push(action);
-            this.save();
+            await this.save();
         } 
     }
 
-    pop(): Action | undefined{
+    async pop(): Promise<Action | undefined>{
         let action: Action | undefined = this.queue[0];
 
         if (action) {
@@ -69,15 +71,15 @@ export default class FIFOQueue {
             
             if (credit && action.cost <= credit?.credit) {
                 action = this.queue.shift();
-                this.save();
+                await this.save();
                 return action;
             }
         }
         return undefined;
     }
 
-    execute() {
-        const action = this.pop();
+    async execute() {
+        const action = await this.pop();
 
         if (action) {
             const credit = this._creditPool.find(c => c.actionName === action.name);
@@ -86,8 +88,8 @@ export default class FIFOQueue {
         }
     }
 
-    save() {
-        writeFile('apps/backend/fifo.json', JSON.stringify(this)).then(_ => console.log('FIFO saved'));
+    async save() {
+        await writeFile('apps/backend/fifo.json', JSON.stringify(this)).then(_ => console.log('FIFO saved'));
     }
 
     public get actionPool(): Action[] {
